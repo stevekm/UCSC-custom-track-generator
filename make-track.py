@@ -39,8 +39,16 @@ def get_data_type(input_file):
     import os
     file_name, extension = os.path.splitext(input_file)
     # dictionary of types recognized
+    data_types = {
     # file extension : (type, URL parameter)
-    data_types = {".bw": ("bigWig","bigDataUrl"), ".bed": ("BED", "url")}
+    ".bw": ("bigWig","bigDataUrl"),
+    ".bed": ("BED", "url"),
+    ".bb": ("bigBed", "bigDataUrl"),
+    ".vcf": ("VCF", "bigDataUrl"),
+    ".bam": ("BAM", "bigDataUrl"),
+    ".bg": ("bedGraph", "url")
+    # GFF, GTF
+    }
     if extension in data_types.keys():
         return(data_types[extension])
     else:
@@ -61,14 +69,15 @@ parser.add_argument("input_files", nargs='+', help="path to the file(s) to creat
 parser.add_argument("-url", default = 'http://somewhere.com/somedir/', type = str, dest = 'url', metavar = 'URL', help="Externally accessible URL base to use for the files")
 
 # optional flags
-parser.add_argument("-g", default = 'hg19', type = str, dest = 'genome', metavar = 'genome', help="Name of the reference genome, Defaults to hg19")
+parser.add_argument("-p", default = None, dest = 'params_file', metavar = 'extra params file', help="File containing extra parameters to include")
 
 
 args = parser.parse_args()
 input_files = args.input_files
-
+params_file = args.params_file
 
 if __name__ == "__main__":
     print(input_files)
     for file in input_files:
         print(get_data_type(file))
+    print(str(params_file))
