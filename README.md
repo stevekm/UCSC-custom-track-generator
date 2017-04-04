@@ -22,7 +22,7 @@ track type=bigWig name="test2.bw" bigDataUrl=http://myserver.edu.external/test2.
 You can pass a mixed list of files, and the script will create a track tailored for each file's type. An output file can also be specified, instead of the default timestamped file (warning: output file will be overwritten).
 
 ```bash
-find sample-data/mixed/ -type f ! -name "*.bai" | xargs ./make-tracks.py -url http://myserver.edu.external/ -p bigwig_params.txt -o my_custom_tracks.txt
+find sample-data/mixed/ -type f ! -name "*.bai" | xargs ./make-tracks.py -url http://myserver.edu.external/ -o my_custom_tracks.txt
 
 UCSC Tracks output to file:
 my_custom_tracks.txt
@@ -31,9 +31,9 @@ my_custom_tracks.txt
 In this case, our output file `my_custom_tracks.txt` looks like this:
 
 ```bash
-track type=BED name="test.bed" url=http://myserver.edu.external/test.bed visibility=full autoScale=off alwaysZero=on maxHeightPixels=50 graphType=bar viewLimits=0:0.3
-track type=BAM name="test.bam" bigDataUrl=http://myserver.edu.external/test.bam visibility=full autoScale=off alwaysZero=on maxHeightPixels=50 graphType=bar viewLimits=0:0.3
-track type=bigWig name="test.bw" bigDataUrl=http://myserver.edu.external/test.bw visibility=full autoScale=off alwaysZero=on maxHeightPixels=50 graphType=bar viewLimits=0:0.3
+track type=BED name="test.bed" url=http://myserver.edu.external/test.bed
+track type=BAM name="test.bam" bigDataUrl=http://myserver.edu.external/test.bam
+track type=bigWig name="test.bw" bigDataUrl=http://myserver.edu.external/test.bw
 ```
 
 ## Params file
