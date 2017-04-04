@@ -57,6 +57,13 @@ def get_track_type(input_file):
         print("File type not recognized for file:\n{}\nExiting...".format(input_file))
         sys.exit()
 
+def initialize_file(string, output_file):
+    '''
+    Write a string to the file in 'write' mode, overwriting any contents
+    '''
+    with open(output_file, "w") as myfile:
+        myfile.write(string)
+
 def append_string(string, output_file):
     '''
     Append a string to a file
@@ -120,6 +127,9 @@ if __name__ == "__main__":
     # default to timestamped output file
     if output_file == None:
         output_file = "UCSC_custom_tracks-{}.txt".format(timestamp())
+
+    # wipe the output file if present; otherwise 'touch' it
+    initialize_file('', output_file)
 
     # make track for each input file
     for file in input_files:
