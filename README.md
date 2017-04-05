@@ -1,4 +1,4 @@
-# UCSC-custom-track-automator
+# UCSC-custom-track-generator
 Script to automatically generate custom tracks to load in the [UCSC Genome Browser](https://genome.ucsc.edu/). 
 
 # Usage
@@ -65,6 +65,8 @@ track type=bigWig name="test2.bw" bigDataUrl=http://myserver.edu.external/test2.
 ## URL
 
 The URL supplied must be reachable by UCSC. If the URL requires a user-login, it will not work. If you are not sure, you should test the URL for one or more tracks by trying to navigate to them from your web browser; login screens and network restrictions may prevent them from working for UCSC. 
+
+The basename of the provided file is simply added to the end of the supplied URL. For example, file `external/path/to/my/peaks.bed` and URL `http://server.edu/external/path/to` will combine as `http://server.edu/external/path/to/peaks.bed`; be sure to provide the full path to the file in the base URL. More complex relative path matching between the provided file path & URL path is not yet implemented. 
 
 ## Supported Types
 
