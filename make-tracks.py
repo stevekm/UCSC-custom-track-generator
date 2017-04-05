@@ -151,5 +151,6 @@ if __name__ == "__main__":
         # make tracks for each input file
         save_all_tracks(input_files, output_file, url_base, file_params)
     elif stdout_flag == True:
+        # print to std out instead
         for file in input_files:
             print(make_UCSC_track(input_file = file, url = url_base, params = file_params))
