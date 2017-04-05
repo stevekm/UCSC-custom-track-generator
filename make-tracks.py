@@ -104,7 +104,7 @@ def make_UCSC_track(input_file, url, params = ''):
     return(track_line)
 
 
-def save_all_tracks(input_files, output_file, url_base, file_params, stdout_flag):
+def save_all_tracks(input_files, output_file, url_base, file_params):
     '''
     Make the UCSC track for each file in the list
     '''
@@ -112,7 +112,7 @@ def save_all_tracks(input_files, output_file, url_base, file_params, stdout_flag
     for file in input_files:
         track_line = make_UCSC_track(input_file = file, url = url_base, params = file_params)
         append_string(track_line, output_file)
-    print('\nUCSC Tracks output to file:\n{}\n'.format(output_file))
+    print('\nUCSC Tracks saved to file:\n{}\n'.format(output_file))
 
 # ~~~~ GET SCRIPT ARGS ~~~~~~ #
 parser = argparse.ArgumentParser(description='UCSC Custom Track Creator.')
