@@ -78,7 +78,15 @@ def timestamp():
     '''
     return('{:%Y-%m-%d-%H-%M-%S}'.format(datetime.datetime.now()))
 
-def make_UCSC_track(input_file, output_file, url, params = ''):
+def check_for_default_outputfile(output_file):
+    '''
+    Return a default value if `output_file` is set to None
+    '''
+    if output_file == None:
+        output_file = "UCSC_custom_tracks-{}.txt".format(timestamp())
+    return(output_file)
+
+def make_UCSC_track(input_file, url, params = ''):
     '''
     Build the custom track text from the input file
     '''
@@ -86,7 +94,18 @@ def make_UCSC_track(input_file, output_file, url, params = ''):
     file_basename = os.path.split(input_file)[1]
     file_url = '{}/{}'.format(url_base, file_basename)
     track_line = 'track type={} name="{}" {}={} {}'.format(track_type['track_type'], file_basename, track_type['url_tag'], file_url, file_params)
-    append_string(track_line, output_file)
+    return(track_line)
+
+
+def save_all_tracks(input_files, output_file, url_base, file_params, stdout_flag):
+    '''
+    Make the UCSC track for each file in the list
+    '''
+    # make track for each input file
+    for file in input_files:
+        track_line = make_UCSC_track(input_file = file, url = url_base, params = file_params)
+        append_string(track_line, output_file)
+    print('\nUCSC Tracks output to file:\n{}\n'.format(output_file))
 
 # ~~~~ GET SCRIPT ARGS ~~~~~~ #
 parser = argparse.ArgumentParser(description='UCSC Custom Track Creator.')
@@ -99,29 +118,31 @@ parser.add_argument("-url", default = 'http://somewhere.com/somedir/', type = st
 # optional flags
 parser.add_argument("-p", default = None, dest = 'params_file', metavar = 'extra params file', help="File containing extra parameters to include")
 parser.add_argument("-o", default = None, dest = 'output_file', metavar = 'output file', help="Output file for tracks. Defaults to timestamped file.")
+parser.add_argument("-s", default = False, action='store_true', dest = 'stdout_flag', help="Whether to print the tracks to stdout.")
 
 args = parser.parse_args()
 input_files = args.input_files
 params_file = args.params_file
 url_base = args.url
 output_file = args.output_file
+stdout_flag = args.stdout_flag
 
 if __name__ == "__main__":
     # trim trailing slash in URL
     if url_base.endswith('/'):
         url_base = url_base[:-1]
-
     # get params from param file, if present
     if params_file != None:
         file_params = concat_file_lines(params_file)
     else :
         file_params = ''
-
-    # default to timestamped output file
-    if output_file == None:
-        output_file = "UCSC_custom_tracks-{}.txt".format(timestamp())
-
-    # make track for each input file
-    for file in input_files:
-        make_UCSC_track(input_file = file, output_file = output_file, url = url_base, params = file_params )
-    print('\nUCSC Tracks output to file:\n{}\n'.format(output_file))
+    if stdout_flag == False:
+        # setup output file
+        output_file = check_for_default_outputfile(output_file)
+        # wipe the output file if present; otherwise 'touch' it
+        initialize_file('', output_file)
+        # make tracks for each input file
+        save_all_tracks(input_files, output_file, url_base, file_params)
+    elif stdout_flag == True:
+        for file in input_files:
+            print(make_UCSC_track(input_file = file, url = url_base, params = file_params))
