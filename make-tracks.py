@@ -57,6 +57,13 @@ def get_track_type(input_file):
         print("File type not recognized for file:\n{}\nExiting...".format(input_file))
         sys.exit()
 
+def initialize_file(string, output_file):
+    '''
+    Write a string to the file in 'write' mode, overwriting any contents
+    '''
+    with open(output_file, "w") as myfile:
+        myfile.write(string)
+
 def append_string(string, output_file):
     '''
     Append a string to a file
