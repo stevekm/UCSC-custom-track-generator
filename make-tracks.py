@@ -45,9 +45,12 @@ def get_track_type(input_file):
     # recognized data types
     data_types = {
     ".bw":  {"track_type": "bigWig", "url_tag": "bigDataUrl"},
+    ".bigwig":  {"track_type": "bigWig", "url_tag": "bigDataUrl"},
+    ".bedgraph": {"track_type": "bedGraph", "url_tag": "url"},
     ".bed": {"track_type": "BED", "url_tag": "url"},
     ".bb":  {"track_type": "bigBed", "url_tag": "bigDataUrl"},
     ".bigbed":  {"track_type": "bigBed", "url_tag": "bigDataUrl"},
+    ".bigBed":  {"track_type": "bigBed", "url_tag": "bigDataUrl"},
     ".vcf": {"track_type": "VCF", "url_tag": "bigDataUrl"},
     ".bam": {"track_type": "BAM", "url_tag": "bigDataUrl"},
     ".bg":  {"track_type": "bedGraph", "url_tag": "url"}

@@ -1,0 +1,7 @@
+visibility=full
+autoScale=off
+alwaysZero=on
+maxHeightPixels=50
+graphType=bar
+viewLimits=0:0.3
+color=100,41,196
