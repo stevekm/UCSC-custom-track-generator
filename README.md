@@ -73,8 +73,8 @@ Currently, only the following file formats are supported by the script:
 
 - bigWig: `.bw`, `.bigwig`
 - bigBed: `.bb`, `.bigbed`, `bigBed`
-- VCF: ".vcf"
-- BAM: ".bam"
+- VCF: `.vcf`
+- BAM: `.bam`
     
 More types may be added later (or you can add them yourself in the script).
 
